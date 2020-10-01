@@ -1,16 +1,10 @@
-from flask import Flask
-from flask import request
-from flask import render_template
 import face_recognition
 import cv2
 import numpy as np
 import mysql.connector
 
-app = Flask(__name__)
+#camera.rotation = 180
 
-@app.route('/recog', methods=['POST', 'GET'])
-def cog():
-    print("HI!")
     
 def recog():
     error = None
@@ -25,13 +19,13 @@ def recog():
     sql = "SELECT `id` FROM `verify_pi`"
     res= mycursor.execute(sql)
     res=mycursor.fetchall()
-    print(res)
+    #print(res)
 
     known_face_encodings = res
     video_capture = cv2.VideoCapture(0)
 
 
-    print(len(res))
+    #print(len(res))
 
     for x in range(len(res)):
         x_image = face_recognition.load_image_file("photos/"+str(x)+".jpg")
@@ -114,9 +108,6 @@ def recog():
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-    return render_template('recog.html', error=error)
     # Release handle to the webcam
-video_capture.release()
-cv2.destroyAllWindows()
-cog()
-recog()
+#video_capture.release()
+    recog()
