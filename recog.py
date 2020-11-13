@@ -110,4 +110,4 @@ def recog():
             break
     # Release handle to the webcam
 #video_capture.release()
-    recog()
+recog()
